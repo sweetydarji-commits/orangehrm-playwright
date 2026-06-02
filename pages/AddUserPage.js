@@ -4,10 +4,10 @@ export class AddUserPage {
   }
 
   async openAddUserForm() {
-    await this.page.getByRole('link', { name: 'Admin' }).click();
+  await this.page.locator('span:has-text("Admin")').click();
 
-    await this.page.getByRole('button', { name: 'Add' }).click();
-  }
+  await this.page.getByRole('button', { name: 'Add' }).click();
+}
 
   async fillUserForm(username, password) {
 
@@ -22,7 +22,7 @@ export class AddUserPage {
       .getByPlaceholder('Type for hints...')
       .fill('a');
 
-    await this.page.waitForTimeout(2000);
+    await this.page.locator('.oxd-autocomplete-option').first().waitFor();
 
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
