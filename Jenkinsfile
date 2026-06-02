@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    
-tools {
-    nodejs 'NodeJS'
-}
 
     environment {
         CI = 'true'
@@ -11,7 +7,7 @@ tools {
 
     stages {
 
-        stage('Install Dependencies') {
+        stage('Install') {
             steps {
                 bat 'npm ci'
             }
