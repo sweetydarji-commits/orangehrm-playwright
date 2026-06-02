@@ -10,10 +10,12 @@ test('Complete User Journey', async ({ page }) => {
   await loginPage.navigate();
 
   await loginPage.login(
-    process.env.DEMO_USERNAME,
-    process.env.PASSWORD
-  );
+  process.env.DemoUSERNAME,
+  process.env.PASSWORD
+);
 
+console.log('USERNAME:', process.env.DemoUSERNAME);
+console.log('PASSWORD:', process.env.PASSWORD);
   await addUser.openAddUserForm();
 
   await addUser.fillUserForm(
