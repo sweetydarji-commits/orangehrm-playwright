@@ -25,7 +25,11 @@ pipeline {
             }
         }
     }
-
+withEnv([
+  "BASE_URL=https://opensource-demo.orangehrmlive.com"
+]) {
+    bat 'npx playwright test'
+}
     post {
         always {
             archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
