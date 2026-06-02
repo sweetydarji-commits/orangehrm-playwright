@@ -1,17 +1,20 @@
 export class LoginPage {
-  constructor(page) {
-    this.page = page;
+constructor(page) {
+  this.page = page;
 
-    this.usernameInput = page.getByPlaceholder('Username');
-    this.passwordInput = page.getByPlaceholder('Password');
-    this.loginButton = page.getByRole('button', { name: 'Login' });
+  this.usernameInput = page.locator('input[name="username"]');
+  this.passwordInput = page.locator('input[name="password"]');
+  this.loginButton = page.locator('button[type="submit"]');
 
-    this.errorMessage = page.getByText('Invalid credentials');
-  }
-
+  this.errorMessage = page.getByText('Invalid credentials');
+}
   async navigate() {
-    await this.page.goto(process.env.BASE_URL);
-  }
+  await this.page.goto(process.env.BASE_URL);
+
+  await this.usernameInput.waitFor({
+    state: 'visible'
+  });
+}
 
   async login(username, password) {
     await this.usernameInput.fill(username);
