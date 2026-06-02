@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import LoginPage from '../../pages/LoginPage';
+import { LoginPage } from '../../pages/LoginPage';
 
-test('Valid Login', async ({ page }) => {
+test('@smoke Valid Login', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.navigate();
