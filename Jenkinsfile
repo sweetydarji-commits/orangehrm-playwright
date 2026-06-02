@@ -1,23 +1,25 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'node20'
+    }
+
+    environment {
+        CI = 'true'
+    }
+
     stages {
 
-        stage('Checkout') {
+        stage('Install Dependencies') {
             steps {
-                git 'YOUR_GITHUB_REPO_URL'
+                bat 'npm ci'
             }
         }
 
-        stage('Install') {
+        stage('Install Playwright') {
             steps {
-                bat 'npm install'
-            }
-        }
-
-        stage('Playwright Browsers') {
-            steps {
-                bat 'npx playwright install'
+                bat 'npx playwright install --with-deps'
             }
         }
 
@@ -25,6 +27,12 @@ pipeline {
             steps {
                 bat 'npx playwright test'
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
         }
     }
 }
