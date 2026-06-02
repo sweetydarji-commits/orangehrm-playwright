@@ -3,19 +3,26 @@ name: Playwright Tests
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      DemoUSERNAME: ${{ secrets.DemoUSERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - run: npm install
+      - run: npm ci
 
-      - run: npx playwright install
+      - run: npx playwright install --with-deps
 
       - run: npx playwright test
