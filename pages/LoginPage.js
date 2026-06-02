@@ -5,6 +5,8 @@ export class LoginPage {
     this.usernameInput = page.getByPlaceholder('Username');
     this.passwordInput = page.getByPlaceholder('Password');
     this.loginButton = page.getByRole('button', { name: 'Login' });
+
+    this.errorMessage = page.getByText('Invalid credentials');
   }
 
   async navigate() {
@@ -16,6 +18,10 @@ export class LoginPage {
     await this.passwordInput.fill(password);
 
     await this.loginButton.click();
+  }
+
+  async loginSuccess(username, password) {
+    await this.login(username, password);
 
     await this.page.waitForURL('**/dashboard/**');
 
@@ -24,10 +30,7 @@ export class LoginPage {
       .waitFor();
   }
 
-  async invalidLogin(username, password) {
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill(password);
-
-    await this.loginButton.click();
+  async verifyInvalidLogin() {
+    await this.errorMessage.waitFor();
   }
 }

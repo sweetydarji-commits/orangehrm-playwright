@@ -6,7 +6,7 @@ test('@smoke Valid Login', async ({ page }) => {
 
   await loginPage.navigate();
 
-  await loginPage.login(
+  await loginPage.loginSuccess(
     process.env.DemoUSERNAME,
     process.env.PASSWORD
   );
