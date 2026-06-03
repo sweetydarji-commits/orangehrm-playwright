@@ -2,18 +2,20 @@ pipeline {
     agent any
 
     environment {
-        CI = 'true'
+        BASE_URL = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
+        USERNAME = 'Admin'
+        PASSWORD = 'admin123'
     }
 
     stages {
 
-        stage('Install') {
+        stage('Install Dependencies') {
             steps {
                 bat 'npm ci'
             }
         }
 
-        stage('Install Playwright') {
+        stage('Install Playwright Browsers') {
             steps {
                 bat 'npx playwright install --with-deps'
             }
@@ -25,14 +27,11 @@ pipeline {
             }
         }
     }
-withEnv([
-  "BASE_URL=https://opensource-demo.orangehrmlive.com"
-]) {
-    bat 'npx playwright test'
-}
+
     post {
         always {
-            archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'test-results/**', allowEmptyArchive: true
         }
     }
 }
