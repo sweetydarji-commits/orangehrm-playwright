@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { ApiClient } from '../../utils/apiClient.js';
 
 test('Delete Post API', async ({ request }) => {
 
-  const response = await request.delete(
-    'https://jsonplaceholder.typicode.com/posts/1'
-  );
+  const api = new ApiClient(request);
+
+  const response = await api.deletePost(1);
 
   expect(response.status()).toBe(200);
 

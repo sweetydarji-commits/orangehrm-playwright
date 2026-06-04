@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import {test,expect} from '../../fixtures/customFixture.js';
 
 import { loginAsAdmin } from '../../utils/testSetup.js';
 

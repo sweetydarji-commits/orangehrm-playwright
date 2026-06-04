@@ -4,29 +4,31 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
-  testDir: './tests',
-
-  timeout: 60000,
+  timeout: 120000,
 
   use: {
-    baseURL: process.env.BASE_URL,
-    headless: true,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure'
-  },
+  baseURL: process.env.BASE_URL,
+  headless: true,
+  ignoreHTTPSErrors: true,
+  actionTimeout: 30000,
+  navigationTimeout: 60000,
+  trace: 'on-first-retry',
+  screenshot: 'only-on-failure',
+  video: 'retain-on-failure'
+},
 
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] }
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] }
-    }
-  ]
+  {
+    name: 'chrome',
+    use: { ...devices['Desktop Chrome'] }
+  },
+  {
+    name: 'firefox',
+    use: { ...devices['Desktop Firefox'] }
+  },
+  {
+    name: 'webkit',
+    use: { ...devices['Desktop Safari'] }
+  }
+]
 });

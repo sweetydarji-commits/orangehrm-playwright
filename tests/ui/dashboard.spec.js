@@ -1,10 +1,8 @@
-import { test, expect } from '@playwright/test';
+import {test,expect} from '../../fixtures/customFixture.js';
 
-import { loginAsAdmin }
-from '../../utils/testSetup.js';
+import { loginAsAdmin } from '../../utils/testSetup.js';
 
-import { DashboardPage }
-from '../../pages/DashboardPage.js';
+import { DashboardPage } from '../../pages/DashboardPage.js';
 
 test('Verify Dashboard Page', async ({ page }) => {
 

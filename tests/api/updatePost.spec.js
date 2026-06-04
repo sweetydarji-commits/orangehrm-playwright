@@ -1,16 +1,17 @@
 import { test, expect } from '@playwright/test';
+import { ApiClient } from '../../utils/apiClient.js';
 
 test('Update Post API', async ({ request }) => {
 
-  const response = await request.put(
-    'https://jsonplaceholder.typicode.com/posts/1',
+  const api = new ApiClient(request);
+
+  const response = await api.updatePost(
+    1,
     {
-      data: {
-        id: 1,
-        title: 'Updated Title',
-        body: 'Updated Body',
-        userId: 1
-      }
+      id: 1,
+      title: 'Updated Title',
+      body: 'Updated Body',
+      userId: 1
     }
   );
 

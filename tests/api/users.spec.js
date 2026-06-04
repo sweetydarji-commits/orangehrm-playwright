@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { ApiClient } from '../../utils/apiClient.js';
 
 test('Get Posts API', async ({ request }) => {
 
-  const response = await request.get(
-    'https://jsonplaceholder.typicode.com/posts'
-  );
+  const api = new ApiClient(request);
+
+  const response = await api.getPosts();
 
   expect(response.status()).toBe(200);
 

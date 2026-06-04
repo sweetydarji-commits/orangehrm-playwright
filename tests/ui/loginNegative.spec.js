@@ -1,33 +1,27 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/LoginPage';
+import { test, expect } from '../../fixtures/customFixture.js';
 
 test.describe('Negative Login Tests', () => {
 
-  test('@regression Invalid Username', async ({ page }) => {
-
-    const loginPage = new LoginPage(page);
+  test('@regression Invalid Username', async ({ loginPage }) => {
 
     await loginPage.navigate();
 
-    await loginPage.login(
-      'wronguser',
-      process.env.PASSWORD
-    );
+await loginPage.login(
+  'wronguser',
+  'admin123'
+);
 
     await loginPage.verifyInvalidLogin();
   });
 
-  test('@regression Invalid Password', async ({ page }) => {
-
-    const loginPage = new LoginPage(page);
+  test('@regression Invalid Password', async ({ loginPage }) => {
 
     await loginPage.navigate();
 
     await loginPage.login(
-      process.env.DemoUSERNAME,
-      'wrongpass'
-    );
-
+  'Admin',
+  'wrongpassword'
+);
     await loginPage.verifyInvalidLogin();
   });
 

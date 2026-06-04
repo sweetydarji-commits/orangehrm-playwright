@@ -1,39 +1,67 @@
+import { expect } from '@playwright/test';
+
 export class LoginPage {
-constructor(page) {
-  this.page = page;
 
-  this.usernameInput = page.locator('input[name="username"]');
-  this.passwordInput = page.locator('input[name="password"]');
-  this.loginButton = page.locator('button[type="submit"]');
+  constructor(page) {
+    this.page = page;
 
-  this.errorMessage = page.getByText('Invalid credentials');
-}
+    this.usernameInput =
+      page.locator('input[name="username"]');
+
+    this.passwordInput =
+      page.locator('input[name="password"]');
+
+    this.loginButton =
+      page.locator('button[type="submit"]');
+  }
+
   async navigate() {
-  await this.page.goto(process.env.BASE_URL);
 
-  await this.usernameInput.waitFor({
-    state: 'visible'
-  });
-}
+    await this.page.goto(
+      process.env.BASE_URL,
+      {
+        waitUntil: 'networkidle',
+        timeout: 60000
+      }
+    );
+
+    await expect(
+      this.usernameInput
+    ).toBeVisible({
+      timeout: 60000
+    });
+
+  }
 
   async login(username, password) {
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill(password);
 
-    await this.loginButton.click();
-  }
+  await this.usernameInput.fill(username);
 
-  async loginSuccess(username, password) {
-    await this.login(username, password);
+  await this.passwordInput.fill(password);
 
-    await this.page.waitForURL('**/dashboard/**');
+  await expect(this.loginButton).toBeVisible({
+    timeout: 60000
+  });
 
-    await this.page
-      .getByRole('heading', { name: 'Dashboard' })
-      .waitFor();
-  }
+  await expect(this.loginButton).toBeEnabled({
+    timeout: 60000
+  });
+
+  await this.loginButton.click({
+    force: true
+  });
+
+}
 
   async verifyInvalidLogin() {
-    await this.errorMessage.waitFor();
+
+    await expect(
+      this.page.locator(
+        '.oxd-alert-content-text'
+      )
+    ).toContainText(
+      'Invalid credentials'
+    );
+
   }
 }

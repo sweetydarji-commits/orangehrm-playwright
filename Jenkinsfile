@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         BASE_URL = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
-        DemoUSERNAME = 'Admin'
+        DEMO_USERNAME = 'Admin'
         PASSWORD = 'admin123'
     }
 
@@ -17,7 +17,7 @@ pipeline {
 
         stage('Install Playwright Browsers') {
             steps {
-                bat 'npx playwright install --with-deps'
+                bat 'npx playwright install' 
             }
         }
 

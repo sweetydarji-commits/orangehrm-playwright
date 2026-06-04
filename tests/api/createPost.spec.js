@@ -1,17 +1,15 @@
 import { test, expect } from '@playwright/test';
+import { ApiClient } from '../../utils/apiClient.js';
 
 test('Create Post API', async ({ request }) => {
 
-  const response = await request.post(
-    'https://jsonplaceholder.typicode.com/posts',
-    {
-      data: {
-        title: 'Playwright',
-        body: 'API Testing',
-        userId: 1
-      }
-    }
-  );
+  const api = new ApiClient(request);
+
+  const response = await api.createPost({
+    title: 'Playwright',
+    body: 'API Testing',
+    userId: 1
+  });
 
   expect(response.status()).toBe(201);
 
