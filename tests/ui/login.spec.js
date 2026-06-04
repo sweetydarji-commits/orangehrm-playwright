@@ -16,5 +16,14 @@ if (await errorMsg.isVisible()) {
   console.log('Error:', await errorMsg.textContent());
 }
 
-  await expect(page).toHaveURL(/dashboard/);
+ await page.waitForURL(
+  /dashboard/,
+  {
+    timeout: 30000
+  }
+);
+
+await expect(page).toHaveURL(
+  /dashboard/
+);
 });

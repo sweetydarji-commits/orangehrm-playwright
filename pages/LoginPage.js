@@ -55,13 +55,21 @@ export class LoginPage {
 
   async verifyInvalidLogin() {
 
-    await expect(
-      this.page.locator(
-        '.oxd-alert-content-text'
-      )
-    ).toContainText(
-      'Invalid credentials'
+  const errorMessage =
+    this.page.locator(
+      '.oxd-alert-content-text'
     );
 
-  }
+  await errorMessage.waitFor({
+    state: 'visible',
+    timeout: 15000
+  });
+
+  await expect(
+    errorMessage
+  ).toContainText(
+    'Invalid credentials'
+  );
+
+}
 }

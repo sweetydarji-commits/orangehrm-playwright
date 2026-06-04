@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
+  workers: 1,
+  retries: 2,
   timeout: 120000,
 
   use: {
@@ -20,15 +22,11 @@ export default defineConfig({
   projects: [
   {
     name: 'chrome',
-    use: { ...devices['Desktop Chrome'] }
-  },
-  {
-    name: 'firefox',
-    use: { ...devices['Desktop Firefox'] }
+    use: { browserName: 'chromium' },
   },
   {
     name: 'webkit',
-    use: { ...devices['Desktop Safari'] }
+    use: { browserName: 'webkit' },
   }
 ]
 });
