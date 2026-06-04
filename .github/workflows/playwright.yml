@@ -12,7 +12,7 @@ jobs:
 
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
-      DEMO_USERNAME: ${{ secrets.USERNAME }}
+      DEMO_USERNAME: ${{ secrets.DEMO_USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
 
     steps:
