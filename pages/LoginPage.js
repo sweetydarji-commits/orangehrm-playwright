@@ -19,8 +19,8 @@ export class LoginPage {
   await this.page.goto(
   process.env.BASE_URL,
   {
-    waitUntil: 'networkidle',
-    timeout: 90000
+      waitUntil: 'domcontentloaded',
+      timeout: 60000
   }
 );
 

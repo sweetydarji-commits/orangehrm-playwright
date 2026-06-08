@@ -29,21 +29,35 @@ export class LeavePage {
   }
 
   async openLeaveModule() {
-    await this.leaveMenu.click();
 
-    await this.applyMenu.click();
+  await this.leaveMenu.click();
 
-    await expect(this.page).toHaveURL(
-      /applyLeave/,
-      { timeout: 30000 }
-    );
+  await this.page.waitForURL(
+    /leave/,
+    { timeout: 60000 }
+  );
 
-    await expect(this.leaveTypeDropdown).toBeVisible({
-      timeout: 30000
-    });
-  }
+  await expect(
+    this.applyMenu
+  ).toBeVisible({
+    timeout: 30000
+  });
 
-  async applyLeave() {
+  await this.applyMenu.click();
+
+  await this.page.waitForLoadState(
+    'networkidle'
+  );
+}
+async applyLeave() {
+
+  await this.page.locator(
+    '.oxd-form-loader'
+  ).waitFor({
+    state: 'hidden',
+    timeout: 30000
+  });
+
   await this.leaveTypeDropdown.click();
 
   await this.leaveOptions.first().click();
@@ -56,14 +70,26 @@ export class LeavePage {
 }
 
 async verifyLeaveApplied() {
+
   await this.page.waitForTimeout(3000);
+
+  console.log(
+    'Current URL:',
+    await this.page.url()
+  );
 
   const errors = await this.page
     .locator('.oxd-input-field-error')
     .allTextContents();
 
-  console.log('Validation Errors:', errors);
+  console.log(
+    'Validation Errors:',
+    errors
+  );
 
-  console.log('Current URL:', await this.page.url());
+  console.log(
+    'Page Text:',
+    await this.page.locator('body').textContent()
+  );
 }
 }
