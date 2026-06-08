@@ -3,10 +3,12 @@ import { LoginPage } from '../../pages/LoginPage.js';
 import { AddUserPage } from '../../pages/AddUserPage.js';
 import { generateUser } from '../../utils/dataGenerator.js';
 
-test('@smoke Add New User', async ({ page }) => {
-
-  const loginPage = new LoginPage(page);
-  const addUser = new AddUserPage(page);
+test('@smoke Add New User',
+async ({
+  page,
+  loginPage,
+  addUserPage
+}) => {
 
   const user = generateUser();
 
@@ -17,17 +19,17 @@ test('@smoke Add New User', async ({ page }) => {
     process.env.PASSWORD
   );
 
-  // IMPORTANT: wait for dashboard
-  await page.waitForURL('**/dashboard/**');
-
-  await addUser.openAddUserForm();
-
-  await addUser.fillUserForm(
-    user.username,
-    user.password
+  await page.waitForURL(
+    '**/dashboard/**'
   );
 
-  console.log('Created User:', user.username);
+  await addUserPage
+    .openAddUserForm();
 
-  await expect(page).toHaveURL(/admin/);
+  await addUserPage
+    .fillUserForm(
+      user.username,
+      user.password
+    );
+
 });

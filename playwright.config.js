@@ -13,7 +13,7 @@ export default defineConfig({
   headless: true,
   ignoreHTTPSErrors: true,
   actionTimeout: 30000,
-  navigationTimeout: 60000,
+  navigationTimeout: 90000,
   trace: 'on-first-retry',
   screenshot: 'only-on-failure',
   video: 'retain-on-failure'

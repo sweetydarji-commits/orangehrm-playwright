@@ -8,22 +8,22 @@ import { adminData } from '../../test-data/adminData.js';
 
 test.describe('Admin Module', () => {
 
-  test('@smoke Search Existing User',
-    async ({ page }) => {
+ test('@smoke Search Existing User',
+async ({
+  page,
+  adminPage
+}) => {
 
-      await loginAsAdmin(page);
+  await loginAsAdmin(page);
 
-      const adminPage =
-        new AdminPage(page);
+  await adminPage.openAdminPage();
 
-      await adminPage.openAdminPage();
+  await adminPage.searchUser(
+    adminData.username
+  );
 
-      await adminPage.searchUser(
-        adminData.username
-      );
+  await adminPage.verifyResultsVisible();
 
-      await adminPage.verifyResultsVisible();
-
-  });
+});
 
 });

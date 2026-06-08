@@ -1,19 +1,23 @@
-import {test,expect} from '../../fixtures/customFixture.js';
+import { test, expect }
+from '../../fixtures/customFixture.js';
 
-import { loginAsAdmin } from '../../utils/testSetup.js';
+import { loginAsAdmin }
+from '../../utils/testSetup.js';
 
-import { DashboardPage } from '../../pages/DashboardPage.js';
+test(
+  'Verify Dashboard Page',
+  async ({
+    page,
+    dashboardPage
+  }) => {
 
-test('Verify Dashboard Page', async ({ page }) => {
+    await loginAsAdmin(page);
 
-  await loginAsAdmin(page);
+    await dashboardPage
+      .verifyDashboardVisible();
 
-  const dashboardPage =
-    new DashboardPage(page);
+    await expect(
+      dashboardPage.dashboardTitle
+    ).toHaveText('Dashboard');
 
-  await dashboardPage.verifyDashboardVisible();
-
-  await expect(
-    dashboardPage.dashboardTitle
-  ).toHaveText('Dashboard');
 });

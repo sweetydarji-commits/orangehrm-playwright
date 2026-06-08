@@ -1,5 +1,6 @@
 
 import { expect } from '@playwright/test';
+import { users }  from '../test-data/users.js';
 export class AddUserPage {
 
   constructor(page) {
@@ -78,7 +79,9 @@ await this.statusDropdown.waitFor({ state: 'visible' });
       { name: 'ESS' })
       .click();
 
-    await this.employeeInput.fill('Linda');
+   await this.employeeInput.fill(
+  users.employee.name
+);
 
     await this.page.waitForSelector(
       '.oxd-autocomplete-option'

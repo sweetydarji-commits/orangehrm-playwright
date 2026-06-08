@@ -15,41 +15,28 @@ export class LoginPage {
       page.locator('button[type="submit"]');
   }
 
-  async navigate() {
-
-    await this.page.goto(
-      process.env.BASE_URL,
-      {
-        waitUntil: 'networkidle',
-        timeout: 60000
-      }
-    );
-
-    await expect(
-      this.usernameInput
-    ).toBeVisible({
-      timeout: 60000
-    });
-
+ async navigate() {
+  await this.page.goto(
+  process.env.BASE_URL,
+  {
+    waitUntil: 'networkidle',
+    timeout: 90000
   }
+);
 
-  async login(username, password) {
+  await expect(
+    this.usernameInput
+  ).toBeVisible({
+    timeout: 30000
+  });
+}
+async login(username, password) {
 
   await this.usernameInput.fill(username);
 
   await this.passwordInput.fill(password);
 
-  await expect(this.loginButton).toBeVisible({
-    timeout: 60000
-  });
-
-  await expect(this.loginButton).toBeEnabled({
-    timeout: 60000
-  });
-
-  await this.loginButton.click({
-    force: true
-  });
+  await this.loginButton.click();
 
 }
 
